@@ -11,9 +11,11 @@ import javax.ws.rs.core.MediaType;
 
 import com.codahale.metrics.annotation.Timed;
 
+import io.swagger.annotations.Api;
 import uk.co.drumcoder.photosalon.PhotoSalonConfiguration;
 
 @Path("/tenants")
+@Api(value = "tenants")
 @Produces(MediaType.APPLICATION_JSON)
 public class TenantResource {
 

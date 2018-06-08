@@ -9,15 +9,12 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 public interface TenantDao {
-	@SqlUpdate("CREATE TABLE Tenants (id int primary key, name varchar(100), slug varchar(25))")
-	void createTenantsTable();
-
 	@SqlQuery("SELECT id, name, slug FROM Tenants")
-	@RegisterBeanMapper(TenantMapper.class)
+	@RegisterBeanMapper(Tenant.class)
 	List<Tenant> findAll();
 
 	@SqlQuery("SELECT id, name, slug FROM Tenants WHERE id=:id")
-	@RegisterBeanMapper(TenantMapper.class)
+	@RegisterBeanMapper(Tenant.class)
 	Tenant findById(@Bind("id") int id);
 
 	@SqlUpdate("INSERT INTO Tenants (id, name, slug) VALUES (:id, :name, :slug")

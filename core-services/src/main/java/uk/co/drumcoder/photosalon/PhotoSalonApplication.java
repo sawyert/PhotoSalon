@@ -3,10 +3,14 @@ package uk.co.drumcoder.photosalon;
 import org.jdbi.v3.core.Jdbi;
 
 import io.dropwizard.Application;
+import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.jdbi3.bundles.JdbiExceptionsBundle;
+import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import uk.co.drumcoder.photosalon.organisation.TenantDao;
 import uk.co.drumcoder.photosalon.organisation.TenantResource;
 
@@ -18,6 +22,20 @@ public class PhotoSalonApplication extends Application<PhotoSalonConfiguration> 
 	@Override
 	public void initialize(Bootstrap<PhotoSalonConfiguration> bootstrap) {
 		bootstrap.addBundle(new JdbiExceptionsBundle());
+
+		bootstrap.addBundle(new MigrationsBundle<PhotoSalonConfiguration>() {
+			@Override
+			public DataSourceFactory getDataSourceFactory(PhotoSalonConfiguration configuration) {
+				return configuration.getDataSourceFactory();
+			}
+		});
+
+		bootstrap.addBundle(new SwaggerBundle<PhotoSalonConfiguration>() {
+			@Override
+			protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(PhotoSalonConfiguration configuration) {
+				return configuration.swaggerBundleConfiguration;
+			}
+		});
 	}
 
 	@Override

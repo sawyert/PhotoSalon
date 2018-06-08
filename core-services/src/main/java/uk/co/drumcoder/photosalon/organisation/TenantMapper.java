@@ -10,7 +10,7 @@ public class TenantMapper implements RowMapper<Tenant> {
 
 	@Override
 	public Tenant map(ResultSet rs, StatementContext ctx) throws SQLException {
-		return new Tenant(rs.getString("id"), rs.getString("name"), rs.getString("slug"));
+		return new Tenant(rs.getLong("id"), rs.getString("name"), rs.getString("slug"));
 	}
 
 }
