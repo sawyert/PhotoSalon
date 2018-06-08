@@ -18,6 +18,9 @@ import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import com.codahale.metrics.annotation.Timed;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @Path("/tenants")
 @Api(value = "tenants")
@@ -30,6 +33,9 @@ public class TenantResource {
 	}
 
 	@POST
+	@ApiOperation(value = "Create a new tenant", notes = "slug must be unique")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "New tenant was created"),
+			@ApiResponse(code = 409, message = "Duplicate slug provided") })
 	public Response createTenant(Tenant tenant) throws URISyntaxException {
 		final String location = "/tenants/" + tenant.getSlug();
 
@@ -45,6 +51,7 @@ public class TenantResource {
 	@GET
 	@Timed
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "List all tenants", notes = "", response = Tenant.class, responseContainer = "List")
 	public List<Tenant> listAll() throws SQLException {
 		return this.tenantDao.findAll();
 	}
@@ -52,6 +59,7 @@ public class TenantResource {
 	@GET
 	@Path("{slug}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Find a single tenant by slug", notes = "", response = Tenant.class, responseContainer = "List")
 	public Tenant singleTenant(@PathParam("slug") String slug) {
 		return this.tenantDao.findBySlug(slug);
 	}
