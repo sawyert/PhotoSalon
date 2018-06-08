@@ -5,6 +5,10 @@ public class Tenant {
 	private String name;
 	private String slug;
 
+	public Tenant() {
+
+	}
+
 	public Tenant(long id, String name, String slug) {
 		this.id = id;
 		this.name = name;

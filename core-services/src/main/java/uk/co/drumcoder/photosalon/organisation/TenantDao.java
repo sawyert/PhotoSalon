@@ -15,8 +15,8 @@ public interface TenantDao {
 
 	@SqlQuery("SELECT id, name, slug FROM Tenants WHERE id=:id")
 	@RegisterBeanMapper(Tenant.class)
-	Tenant findById(@Bind("id") int id);
+	Tenant findById(@Bind("id") long id);
 
-	@SqlUpdate("INSERT INTO Tenants (id, name, slug) VALUES (:id, :name, :slug")
+	@SqlUpdate("INSERT INTO Tenants (name, slug) VALUES (:name, :slug)")
 	void insert(@BindBean Tenant tenant);
 }

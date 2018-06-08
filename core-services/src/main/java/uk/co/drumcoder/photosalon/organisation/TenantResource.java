@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -25,6 +26,11 @@ public class TenantResource {
 	public TenantResource(PhotoSalonConfiguration configuration, TenantDao tenantDao) {
 		this.configuration = configuration;
 		this.tenantDao = tenantDao;
+	}
+
+	@POST
+	public void createTenant(Tenant tenant) {
+		this.tenantDao.insert(tenant);
 	}
 
 	@GET
