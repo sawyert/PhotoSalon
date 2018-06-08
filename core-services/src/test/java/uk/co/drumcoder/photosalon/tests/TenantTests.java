@@ -8,7 +8,6 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import uk.co.drumcoder.photosalon.PhotoSalonConfiguration;
 import uk.co.drumcoder.photosalon.organisation.Tenant;
 import uk.co.drumcoder.photosalon.organisation.TenantDao;
 import uk.co.drumcoder.photosalon.organisation.TenantResource;
@@ -20,13 +19,12 @@ public class TenantTests {
 		// Arrange
 		final TenantDao tenantDao = Mockito.mock(TenantDao.class);
 		final List<Tenant> testTenants = Arrays.asList( //
-				new Tenant(1, "Ilkley Camera Club", "icc"), //
-				new Tenant(2, "Yorkshire Salon", "yorkshire-salon") //
+				new Tenant("Ilkley Camera Club", "icc"), //
+				new Tenant("Yorkshire Salon", "yorkshire-salon") //
 		);
 		Mockito.when(tenantDao.findAll()).thenReturn(testTenants);
 
-		final PhotoSalonConfiguration photoSalonConfiguration = new PhotoSalonConfiguration();
-		final TenantResource tenantResource = new TenantResource(photoSalonConfiguration, tenantDao);
+		final TenantResource tenantResource = new TenantResource(tenantDao);
 
 		// Act
 		final List<Tenant> tenants = tenantResource.listAll();
@@ -34,7 +32,6 @@ public class TenantTests {
 		// Assert
 		Assert.assertEquals(2, tenants.size());
 		final Tenant firstTenant = tenants.get(0);
-		Assert.assertEquals(1, firstTenant.getId());
 		Assert.assertEquals("Ilkley Camera Club", firstTenant.getName());
 		Assert.assertEquals("icc", firstTenant.getSlug());
 	}
@@ -43,17 +40,15 @@ public class TenantTests {
 	public void testSelectTenantById() throws SQLException {
 		// Arrange
 		final TenantDao tenantDao = Mockito.mock(TenantDao.class);
-		final Tenant testTenant = new Tenant(1, "Ilkley Camera Club", "icc");
-		Mockito.when(tenantDao.findById(1)).thenReturn(testTenant);
+		final Tenant testTenant = new Tenant("Ilkley Camera Club", "icc");
+		Mockito.when(tenantDao.findBySlug("icc")).thenReturn(testTenant);
 
-		final PhotoSalonConfiguration photoSalonConfiguration = new PhotoSalonConfiguration();
-		final TenantResource tenantResource = new TenantResource(photoSalonConfiguration, tenantDao);
+		final TenantResource tenantResource = new TenantResource(tenantDao);
 
 		// Act
 		final Tenant returnedTenant = tenantResource.singleTenant("1");
 
 		// Assert
-		Assert.assertEquals(1, returnedTenant.getId());
 		Assert.assertEquals("Ilkley Camera Club", returnedTenant.getName());
 		Assert.assertEquals("icc", returnedTenant.getSlug());
 	}

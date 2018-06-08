@@ -1,22 +1,15 @@
 package uk.co.drumcoder.photosalon.organisation;
 
 public class Tenant {
-	private long id;
 	private String name;
 	private String slug;
 
 	public Tenant() {
-
 	}
 
-	public Tenant(long id, String name, String slug) {
-		this.id = id;
+	public Tenant(String name, String slug) {
 		this.name = name;
 		this.slug = slug;
-	}
-
-	public long getId() {
-		return this.id;
 	}
 
 	public String getName() {
@@ -25,10 +18,6 @@ public class Tenant {
 
 	public String getSlug() {
 		return this.slug;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public void setName(String name) {
