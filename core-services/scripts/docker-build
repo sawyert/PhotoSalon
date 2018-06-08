@@ -1,0 +1,6 @@
+#!/bin/bash
+
+docker build -t photosalon/core-api ~/web/PhotoSalon/core-services/
+docker tag photosalon/core-api  626659527619.dkr.ecr.eu-west-1.amazonaws.com/photo-salon
+aws ecr get-login --no-include-email
+docker push 626659527619.dkr.ecr.eu-west-1.amazonaws.com/photo-salon
