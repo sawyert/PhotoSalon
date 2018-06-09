@@ -12,8 +12,11 @@ import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.basic.BasicCredentials;
 
 public class AppBasicAuthenticator implements Authenticator<BasicCredentials, User> {
-	private static final Map<String, Set<String>> VALID_USERS = ImmutableMap.of("guest", ImmutableSet.of(), "user",
-			ImmutableSet.of("USER"), "admin", ImmutableSet.of("ADMIN", "USER"));
+	private static final Map<String, Set<String>> VALID_USERS = ImmutableMap.of( //
+			"guest", ImmutableSet.of(), //
+			"user", ImmutableSet.of("USER"), //
+			"admin", ImmutableSet.of("ADMIN", "USER") //
+	);
 
 	@Override
 	public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException {
