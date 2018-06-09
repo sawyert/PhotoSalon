@@ -46,7 +46,7 @@ public class TenantTests {
 		final TenantResource tenantResource = new TenantResource(tenantDao);
 
 		// Act
-		final Tenant returnedTenant = tenantResource.singleTenant("1");
+		final Tenant returnedTenant = (Tenant) tenantResource.singleTenant("icc").getEntity();
 
 		// Assert
 		Assert.assertEquals("Ilkley Camera Club", returnedTenant.getName());

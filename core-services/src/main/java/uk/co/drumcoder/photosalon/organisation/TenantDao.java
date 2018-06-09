@@ -9,6 +9,9 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 public interface TenantDao {
+	@SqlUpdate("DELETE FROM tenants WHERE slug = :slug")
+	void deleteTenant(@Bind("slug") String slug);
+
 	@SqlQuery("SELECT name, slug FROM tenants")
 	@RegisterBeanMapper(Tenant.class)
 	List<Tenant> findAll();
