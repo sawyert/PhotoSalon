@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -30,10 +30,10 @@ public class TenantTests {
 		final List<Tenant> tenants = tenantResource.listAll();
 
 		// Assert
-		Assert.assertEquals(2, tenants.size());
+		Assertions.assertEquals(2, tenants.size());
 		final Tenant firstTenant = tenants.get(0);
-		Assert.assertEquals("Ilkley Camera Club", firstTenant.getName());
-		Assert.assertEquals("icc", firstTenant.getSlug());
+		Assertions.assertEquals("Ilkley Camera Club", firstTenant.getName());
+		Assertions.assertEquals("icc", firstTenant.getSlug());
 	}
 
 	@Test
@@ -49,7 +49,7 @@ public class TenantTests {
 		final Tenant returnedTenant = (Tenant) tenantResource.singleTenant("icc").getEntity();
 
 		// Assert
-		Assert.assertEquals("Ilkley Camera Club", returnedTenant.getName());
-		Assert.assertEquals("icc", returnedTenant.getSlug());
+		Assertions.assertEquals("Ilkley Camera Club", returnedTenant.getName());
+		Assertions.assertEquals("icc", returnedTenant.getSlug());
 	}
 }

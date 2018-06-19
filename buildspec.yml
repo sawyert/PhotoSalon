@@ -1,15 +1,16 @@
 version: 0.2
 
 phases:
+  pre_build:
+    commands:
+      - cd core-services
   build:
     commands:
       - echo Build started on `date`
-      - cd core-services 
       - mvn test
   post_build:
     commands:
       - echo Build completed on `date`
-      - cd core-services
       - mvn package
 artifacts:
   files:
