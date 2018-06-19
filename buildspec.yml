@@ -4,11 +4,13 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - cd core-services 
       - mvn test
   post_build:
     commands:
       - echo Build completed on `date`
+      - cd core-services
       - mvn package
 artifacts:
   files:
-    - target/photosalon-api-0.0.1-SNAPSHOT.jar
+    - core-services/target/photosalon-api-0.0.1-SNAPSHOT.jar
